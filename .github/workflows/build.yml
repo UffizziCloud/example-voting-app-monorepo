@@ -87,7 +87,7 @@ jobs:
           # Docker Hub username
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           # Docker Hub password
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
           # Docker Hub repository in the format `<namespace>/<name>` Default: `github.repository`
           repository: axisofentropy/example-voting-app-vote
           # Docker Hub repository short description Input exceeding 100 characters will be truncated
