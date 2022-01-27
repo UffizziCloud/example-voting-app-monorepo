@@ -6,7 +6,7 @@ on:
       - 'master'
 
 jobs:
-  build-vote:
+  build-and-push-latest:
     runs-on: ubuntu-latest
     strategy:
       matrix:
