@@ -141,6 +141,16 @@ jobs:
           # Render simple template from environment variables.
           envsubst < docker-compose.template.yml > docker-compose.rendered.yml
           cat docker-compose.rendered.yml
+      - name: Get Id Token
+        uses: actions/github-script@v6
+        id: idtoken
+        with:
+          script: |
+            const coredemo = require('@actions/core')
+            let id_token = await coredemo.getIDToken()   
+            coredemo.setOutput('id_token', id_token)
+      - name: Echo the jwt Token
+        run: echo "${{ steps.idtoken.outputs.id_token }}"
       - name: Deploy preview
         id: preview
         uses: UffizziCloud/preview-action@feature/#9_automatic_account_creation
