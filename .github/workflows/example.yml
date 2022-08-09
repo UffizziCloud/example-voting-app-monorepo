@@ -143,7 +143,7 @@ jobs:
           cat docker-compose.rendered.yml
       - name: Deploy preview
         id: preview
-        uses: UffizziCloud/preview-action@master
+        uses: UffizziCloud/preview-action@feature/#9_automatic_account_creation
         with:
           compose-file: 'docker-compose.rendered.yml'
           username: user@uffizzi.com
