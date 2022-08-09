@@ -10,6 +10,9 @@ on:
   pull_request:
     types: [opened,synchronize,reopened]
 
+permissions:
+  id-token: write
+
 jobs:
   build-vote:
     name: Build and Push `vote`
@@ -114,6 +117,21 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           context: ./loadbalancer
+  create-jwt-token:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install OIDC Client from Core Package
+      run: npm install @actions/core@1.6.0 @actions/http-client
+    - name: Get Id Token
+      uses: actions/github-script@v6
+      id: idtoken
+      with:
+        script: |
+          const coredemo = require('@actions/core')
+          let id_token = await coredemo.getIDToken()   
+          coredemo.setOutput('id_token', id_token) 
+    - name: Echo the jwt Token
+      run: echo "${{ steps.idtoken.outputs.id_token }}"
 
   deploy-uffizzi-preview:
     name: Preview on Uffizzi
@@ -141,16 +159,7 @@ jobs:
           # Render simple template from environment variables.
           envsubst < docker-compose.template.yml > docker-compose.rendered.yml
           cat docker-compose.rendered.yml
-      - name: Get Id Token
-        uses: actions/github-script@v6
-        id: idtoken
-        with:
-          script: |
-            const coredemo = require('@actions/core')
-            let id_token = await coredemo.getIDToken()   
-            coredemo.setOutput('id_token', id_token)
-      - name: Echo the jwt Token
-        run: echo "${{ steps.idtoken.outputs.id_token }}"
+
       - name: Deploy preview
         id: preview
         uses: UffizziCloud/preview-action@feature/#9_automatic_account_creation
