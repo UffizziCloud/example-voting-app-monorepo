@@ -143,13 +143,13 @@ jobs:
           cat docker-compose.rendered.yml
       - name: Deploy preview
         id: preview
-        uses: UffizziCloud/preview-action@master
+        uses: UffizziCloud/preview-action@feature/#9_automatic_account_creation
         with:
           compose-file: 'docker-compose.rendered.yml'
           username: user@uffizzi.com
-          server: https://temp-2022-04.uffizzicloud.com/
-          project: default
-          password: ${{ secrets.UFFIZZI_PASSWORD }}
+          server: https://app.qa-gke.uffizzi.com/
+          project: zakary-monahan-x2y1
+          password: ${{ secrets.LIDIA_PASSWORD }}
       - name: Check outputs
         run: echo "${{ steps.preview.outputs.id }} at ${{ steps.preview.outputs.url }}"
       - name: Confirm Successful Preview Deployment
