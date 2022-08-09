@@ -146,7 +146,7 @@ jobs:
         uses: UffizziCloud/preview-action@feature/#9_automatic_account_creation
         with:
           compose-file: 'docker-compose.rendered.yml'
-          username: user@uffizzi.com
+          username: lidia.mokevnina@dualbootpartners.com
           server: https://app.qa-gke.uffizzi.com/
           project: zakary-monahan-x2y1
           password: ${{ secrets.LIDIA_PASSWORD }}
