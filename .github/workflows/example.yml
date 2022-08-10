@@ -157,7 +157,7 @@ jobs:
       # Borrowed from https://github.com/alexellis/minty/blob/master/.github/workflows/federate.yml
       - name: Get JWT via curl and parse
         run: |
-          OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=o6s" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
+          OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=uffizzi" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
           JWT=$(echo $OIDC_TOKEN | jq -j '.value')
           jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' <<< "${JWT}"
 
