@@ -160,10 +160,10 @@ jobs:
         uses: UffizziCloud/preview-action@feature/#9_automatic_account_creation
         with:
           compose-file: 'docker-compose.rendered.yml'
-          username: lidia.mokevnina@dualbootpartners.com
+          # username: lidia.mokevnina@dualbootpartners.com
           server: https://app.qa-gke.uffizzi.com/
           project: zakary-monahan-x2y1
-          password: ${{ secrets.LIDIA_PASSWORD }}
+          # password: ${{ secrets.LIDIA_PASSWORD }}
           oidc-token: ${{ steps.idtoken.outputs.id_token }}
       - name: Check outputs
         run: echo "${{ steps.preview.outputs.id }} at ${{ steps.preview.outputs.url }}"
