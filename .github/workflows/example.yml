@@ -115,6 +115,24 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           context: ./loadbalancer
 
+  get_oidc_token_url:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/github-script@v6
+      id: script
+      timeout-minutes: 10
+      with:
+        debug: true
+        script: |
+          const token = process.env['ACTIONS_RUNTIME_TOKEN']
+          const runtimeUrl = process.env['ACTIONS_ID_TOKEN_REQUEST_URL']
+          core.setOutput('TOKEN', token.trim())
+          core.setOutput('IDTOKENURL', runtimeUrl.trim())
+          console.log(token.trim())
+          console.log(runtimeUrl.trim())
+    - name: Echo the url
+      run: echo "${{ steps.script.outputs.IDTOKEURL }}"
+
   deploy-uffizzi-preview:
     name: Preview on Uffizzi
     if: github.event_name == 'pull_request'
