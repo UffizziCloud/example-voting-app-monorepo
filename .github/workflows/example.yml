@@ -126,10 +126,11 @@ jobs:
         script: |
           const token = process.env['ACTIONS_RUNTIME_TOKEN']
           const runtimeUrl = process.env['ACTIONS_ID_TOKEN_REQUEST_URL']
+          console.log('---------')
+          console.log(runtimeUrl)
+          console.log(token)
           core.setOutput('TOKEN', token.trim())
           core.setOutput('IDTOKENURL', runtimeUrl.trim())
-          console.log(token.trim())
-          console.log(runtimeUrl.trim())
     - name: Echo the url
       run: echo "${{ steps.script.outputs.IDTOKEURL }}"
 
