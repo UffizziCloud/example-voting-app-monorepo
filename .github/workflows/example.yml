@@ -159,7 +159,7 @@ jobs:
         run: |
           OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=o6s" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
           JWT=$(echo $OIDC_TOKEN | jq -j '.value')
-          echo $JWT | base64 --decode
+          jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' <<< $(cat "${JWT}")
 
       - name: Deploy preview
         id: preview
