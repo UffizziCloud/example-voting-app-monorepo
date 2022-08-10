@@ -10,19 +10,23 @@ on:
   pull_request:
     types: [opened,synchronize,reopened]
 
+permissions:
+  id-token: write
+
 jobs:
-  - name: Install OIDC Client from Core Package
-    run: npm install @actions/core@1.6.0 @actions/http-client
-  - name: Get Id Token
-    uses: actions/github-script@v6
-    id: idtoken
-    with:
-      script: |
-        const coredemo = require('@actions/core')
-        let id_token = await coredemo.getIDToken()
-        coredemo.setOutput('id_token', id_token)
-  - name: Check toke outputs
-    run: echo "${{ steps.idtoken.outputs.id_token }}"
+  job:
+    - name: Install OIDC Client from Core Package
+      run: npm install @actions/core@1.6.0 @actions/http-client
+    - name: Get Id Token
+      uses: actions/github-script@v6
+      id: idtoken
+      with:
+        script: |
+          const coredemo = require('@actions/core')
+          let id_token = await coredemo.getIDToken()
+          coredemo.setOutput('id_token', id_token)
+    - name: Check toke outputs
+      run: echo "${{ steps.idtoken.outputs.id_token }}"
   # build-vote:
   #   name: Build and Push `vote`
   #   runs-on: ubuntu-latest
