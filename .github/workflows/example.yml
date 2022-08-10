@@ -15,6 +15,8 @@ permissions:
 
 jobs:
   job:
+    name: Check id token
+    runs-on: ubuntu-latest
     steps:
       - name: Install OIDC Client from Core Package
         run: npm install @actions/core@1.6.0 @actions/http-client
@@ -27,7 +29,7 @@ jobs:
             let id_token = await coredemo.getIDToken()
             coredemo.setOutput('id_token', id_token)
       - name: Check toke outputs
-      run: echo "${{ steps.idtoken.outputs.id_token }}"
+        run: echo "${{ steps.idtoken.outputs.id_token }}"
   # build-vote:
   #   name: Build and Push `vote`
   #   runs-on: ubuntu-latest
