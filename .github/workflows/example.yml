@@ -1,4 +1,6 @@
 name: Example Workflow
+permissions:
+  id-token: write
 
 on:
   push:
