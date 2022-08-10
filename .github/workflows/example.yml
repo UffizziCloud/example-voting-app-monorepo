@@ -141,6 +141,17 @@ jobs:
           # Render simple template from environment variables.
           envsubst < docker-compose.template.yml > docker-compose.rendered.yml
           cat docker-compose.rendered.yml
+      # Obtain a JWT token from GHA
+      - name: Install OIDC Client from Core Package
+        run: npm install @actions/core@1.6.0 @actions/http-client
+      - name: Get Id Token
+        uses: actions/github-script@v6
+        id: idtoken
+        with:
+          script: |
+            const coredemo = require('@actions/core')
+            let id_token = await coredemo.getIDToken()
+            coredemo.setOutput('id_token', id_token)
 
       - name: Deploy preview
         id: preview
@@ -151,6 +162,7 @@ jobs:
           server: https://app.qa-gke.uffizzi.com/
           project: zakary-monahan-x2y1
           password: ${{ secrets.LIDIA_PASSWORD }}
+          oidc-token: ${{ steps.idtoken.outputs.id_token }}
       - name: Check outputs
         run: echo "${{ steps.preview.outputs.id }} at ${{ steps.preview.outputs.url }}"
       - name: Confirm Successful Preview Deployment
