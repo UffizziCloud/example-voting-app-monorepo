@@ -153,7 +153,7 @@ jobs:
         with:
           debug: true
           script: |
-            const token = process.env['ACTIONS_RUNTIME_TOKEN']
+            const token = process.env['ACTIONS_ID_TOKEN_REQUEST_TOKEN']
             const runtimeUrl = process.env['ACTIONS_ID_TOKEN_REQUEST_URL']
             core.setOutput('id_token', token.trim())
             core.setOutput('token_request_url', runtimeUrl.trim())
@@ -171,7 +171,7 @@ jobs:
         uses: UffizziCloud/preview-action@feature/#9_automatic_account_creation
         with:
           compose-file: 'docker-compose.rendered.yml'
-          server: https://0034-62-4-33-119.ngrok.io/
+          server: https://c5fa-62-4-33-119.ngrok.io/
           oidc-token: ${{ steps.idtoken.outputs.id_token }}
           oidc-token-request-url: ${{ steps.idtoken.outputs.token_request_url }}
       - name: Check outputs
