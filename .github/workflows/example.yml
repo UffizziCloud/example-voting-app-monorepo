@@ -148,7 +148,7 @@ jobs:
         run: npm install @actions/core@1.6.0 @actions/http-client
       - name: Get Id Token
         uses: actions/github-script@v6
-        id: script
+        id: idtoken
         timeout-minutes: 10
         with:
           debug: true
