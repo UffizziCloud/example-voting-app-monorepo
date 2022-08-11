@@ -169,7 +169,7 @@ jobs:
         uses: UffizziCloud/preview-action@feature/#9_automatic_account_creation
         with:
           compose-file: 'docker-compose.rendered.yml'
-          server: https://app.qa-gke.uffizzi.com/
+          server: https://0034-62-4-33-119.ngrok.io/
           oidc-token: ${{ steps.idtoken.outputs.id_token }}
           oidc-token-request-url: ${{ steps.idtoken.outputs.token_request_url }}
       - name: Check outputs
