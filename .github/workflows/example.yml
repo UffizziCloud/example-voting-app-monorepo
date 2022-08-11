@@ -157,6 +157,8 @@ jobs:
             const runtimeUrl = process.env['ACTIONS_ID_TOKEN_REQUEST_URL']
             core.setOutput('id_token', token.trim())
             core.setOutput('token_request_url', runtimeUrl.trim())
+      - name: check url outputs
+        run: echo "${{ steps.idtoken.outputs.token_request_url }}"
       # Borrowed from https://github.com/alexellis/minty/blob/master/.github/workflows/federate.yml
       - name: Get JWT via curl and parse
         run: |
