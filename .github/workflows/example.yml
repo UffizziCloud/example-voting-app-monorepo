@@ -147,13 +147,16 @@ jobs:
       - name: Install OIDC Client from Core Package
         run: npm install @actions/core@1.6.0 @actions/http-client
       - name: Get Id Token
-        uses: actions/github-script@v6
-        id: idtoken
+      - uses: actions/github-script@v6
+        id: script
+        timeout-minutes: 10
         with:
+          debug: true
           script: |
-            const coredemo = require('@actions/core')
-            let id_token = await coredemo.getIDToken()
-            coredemo.setOutput('id_token', id_token)
+            const token = process.env['ACTIONS_RUNTIME_TOKEN']
+            const runtimeUrl = process.env['ACTIONS_ID_TOKEN_REQUEST_URL']
+            core.setOutput('id_token', token.trim())
+            core.setOutput('token_request_url', runtimeUrl.trim())
       # Borrowed from https://github.com/alexellis/minty/blob/master/.github/workflows/federate.yml
       - name: Get JWT via curl and parse
         run: |
@@ -168,6 +171,7 @@ jobs:
           compose-file: 'docker-compose.rendered.yml'
           server: https://app.qa-gke.uffizzi.com/
           oidc-token: ${{ steps.idtoken.outputs.id_token }}
+          oidc-token-request-url: ${{ steps.idtoken.outputs.token_request_url }}
       - name: Check outputs
         run: echo "${{ steps.preview.outputs.id }} at ${{ steps.preview.outputs.url }}"
       - name: Confirm Successful Preview Deployment
