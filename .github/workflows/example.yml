@@ -143,7 +143,7 @@ jobs:
           # Render simple template from environment variables.
           envsubst < docker-compose.template.yml > docker-compose.rendered.yml
           cat docker-compose.rendered.yml
-      Obtain a JWT token from GHA
+      # Obtain a JWT token from GHA
       - name: Install OIDC Client from Core Package
         run: npm install @actions/core@1.6.0 @actions/http-client
       - name: Get Id Token
