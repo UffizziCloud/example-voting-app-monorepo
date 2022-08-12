@@ -143,24 +143,24 @@ jobs:
           # Render simple template from environment variables.
           envsubst < docker-compose.template.yml > docker-compose.rendered.yml
           cat docker-compose.rendered.yml
-      # Obtain a JWT token from GHA
-      # - name: Install OIDC Client from Core Package
-      #   run: npm install @actions/core@1.6.0 @actions/http-client
-      # - name: Get Id Token
-      #   uses: actions/github-script@v6
-      #   id: idtoken
-      #   timeout-minutes: 10
-      #   with:
-      #     debug: true
-      #     script: |
-      #       const token = process.env['ACTIONS_ID_TOKEN_REQUEST_TOKEN']
-      #       const runtimeUrl = process.env['ACTIONS_ID_TOKEN_REQUEST_URL']
-      #       core.setOutput('id_token', token.trim())
-      #       core.setOutput('token_request_url', runtimeUrl.trim())
+      Obtain a JWT token from GHA
+      - name: Install OIDC Client from Core Package
+        run: npm install @actions/core@1.6.0 @actions/http-client
+      - name: Get Id Token
+        uses: actions/github-script@v6
+        id: idtoken
+        timeout-minutes: 10
+        with:
+          debug: true
+          script: |
+            const token = process.env['ACTIONS_ID_TOKEN_REQUEST_TOKEN']
+            const runtimeUrl = process.env['ACTIONS_ID_TOKEN_REQUEST_URL']
+            core.setOutput('id_token', token.trim())
+            core.setOutput('token_request_url', runtimeUrl.trim())
 
       # Borrowed from https://github.com/alexellis/minty/blob/master/.github/workflows/federate.yml
       - name: Get JWT via curl and parse
-        id: idtoken
+        # id: idtoken
         run: |
           OIDC_TOKEN=$(curl -sLS "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=uffizzi" -H "User-Agent: actions/oidc-client" -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN")
           JWT=$(echo $OIDC_TOKEN | jq -j '.value')
