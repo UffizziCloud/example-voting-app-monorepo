@@ -161,8 +161,8 @@ jobs:
           server: https://c45c-62-4-33-119.ngrok.io/
           oidc-token: ${{ steps.idtoken.outputs.id_token }}
         secrets:
-          dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          dockerhub-username: "${{ secrets.DOCKERHUB_USERNAME }}"
+          dockerhub-password: "${{ secrets.DOCKERHUB_PASSWORD }}"
       - name: Check outputs
         run: echo "${{ steps.preview.outputs.id }} at ${{ steps.preview.outputs.url }}"
       - name: Confirm Successful Preview Deployment
