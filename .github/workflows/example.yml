@@ -156,7 +156,7 @@ jobs:
         uses: UffizziCloud/preview-action@feature/#9_automatic_account_creation
         with:
           compose-file: 'docker-compose.rendered.yml'
-          server: https://deployment-4987-ufzi-on-ufzi-cp-internal-x0vlpg.app.uffizzi.com/
+          server: https://deployment-4991-ufzi-on-ufzi-cp-internal-x0vlpg.app.uffizzi.com/
           oidc-token: ${{ steps.idtoken.outputs.id_token }}
           dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub-password: ${{ secrets.DOCKERHUB_PASSWORD }}
